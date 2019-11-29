@@ -3,6 +3,7 @@ evaluate the algorithm and output the csv file for analysis
 """
 import argparse
 import csv
+import Levenshtein
 
 
 def read_file(path):
@@ -16,7 +17,8 @@ def get_index(string):
 
 
 def eval(index, output_data, eval_data):
-    precision = sum(output_data[i] == eval_data[i] for i in index) / len(index)
+    # precision = sum(output_data[i] == eval_data[i] for i in index) / len(index)
+    precision = Levenshtein.distance(output_data, eval_data)
     return precision
 
 
