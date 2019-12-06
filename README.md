@@ -9,6 +9,6 @@ https://docs.google.com/spreadsheets/d/1uprDgLpFYpxspH6zLF2VxF3g0QJ7TjyRG4fDPtVU
 ### 実行例
 - [ ] data/ディレクトリ以下に入力データdat{0..4}_in, 正解データdat{0..4}_refを保存する。
 - [ ] mv example_code/{実行したいアルゴリズム}.c example_code/template.c
-- [ ] source evaluate_auto.s
+- [ ] source evaluate_auto.sh
 - [ ] 実行結果は標準出力に出力される。
 - [ ] 実行後, カレントディレクトリにerror_analysis{0..4}.csvが出力される。
