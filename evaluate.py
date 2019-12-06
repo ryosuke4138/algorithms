@@ -38,15 +38,15 @@ def main(input_file, output_file, eval_file, is_analysis, output_csv_file_name):
     eval_data = read_file(eval_file)
 
     index = get_index(input_data)
-    precision = eval(index, output_data, eval_data)
-    print('precision: {}'.format(precision))
+    hensyukyori = eval(index, output_data, eval_data)
 
     if is_analysis:
         output = analysis(index, input_data, output_data, eval_data)
         with open(output_csv_file_name, 'w') as f:
             writer = csv.writer(f, lineterminator='\n')
             writer.writerow(output)
-            print('correctly saved {}'.format(output_csv_file_name))
+
+    return hensyukyori
 
 
 if __name__ == '__main__':
