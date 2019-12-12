@@ -5,6 +5,8 @@
 #include <sys/resource.h>
 #include<string.h>
 
+#define LIM_LEN 15
+
 //Sの構造体
 typedef struct{
     char word[150];
@@ -97,8 +99,12 @@ int main_prg(int argc, char** argv){
     fscanf(fp_in,"%s\n",T_dash);
     int t_len=strlen(T_dash);
 
+    //入力をT'とは別に保持
+    char *T_in=(char*)malloc(sizeof(char)*500000);
+    strcpy(T_in, T_dash);
+
     //Sの用意
-    S s[50000];
+    S *s = malloc(50000 * sizeof(S)); // S s[50000];
     int s_cnt=0;
     while(fgets(s[s_cnt].word,150,fp_in)!=NULL){
         s[s_cnt].w_len=strlen(s[s_cnt].word)-1;
@@ -117,6 +123,9 @@ int main_prg(int argc, char** argv){
     //bm法で挿入
     int i;
     for(i=0;i<s_cnt;i++){
+        //長さ15未満の断片は挿入しない
+        if(s[i].w_len < LIM_LEN) break;
+
         bm(T_dash,t_len,s[i]);
     }
 
@@ -125,6 +134,12 @@ int main_prg(int argc, char** argv){
         if(T_dash[i]=='x'){
             T_dash[i]='a';
         }
+
+        //"dc"を置き換える
+        if(i > 0 && T_dash[i-1] == 'd' && T_dash[i] == 'c'){
+            if(T_in[i - 1] == 'x') T_dash[i - 1] = 'a';
+            if(T_in[i] == 'x') T_dash[i] = 'a';
+        }
     }
 
     //結果を書き込む
@@ -132,5 +147,9 @@ int main_prg(int argc, char** argv){
     
     //出力ファイルを閉じる
     fclose(fp_out);
+
+    free(T_dash);
+    free(T_in);
+
     return 0;
 }
